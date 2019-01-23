@@ -1,0 +1,122 @@
+<head>
+  <link href="https://fonts.googleapis.com/css?family=Aleo|Thasadith" rel="stylesheet" type="text/css">
+  <link href="cash-register.css" rel="stylesheet" type="text/css">
+</head>
+
+<!--  -->
+
+<body>
+  <h1>JavaScript Cash Register</h1>
+  
+  <div id="cash-in-drawer-display">
+    <h2>Cash in drawer:</h2>
+    <div id="cash-in-drawer-grid">
+      <div id="hundred-container" class="cash-container">
+        <p class="denomination-value">100</p><hr>
+        <p id="hundred-value" class="cash-value"></p>
+      </div>
+      
+      <div id="twenty-container" class="cash-container">
+        <p class="denomination-value">20</p><hr>
+        <p id="twenty-value" class="cash-value"></p>
+      </div>
+      
+      <div id="ten-container" class="cash-container">
+        <p class="denomination-value">10</p><hr>
+        <p id="ten-value" class="cash-value"></p>
+      </div>
+      
+      <div id="five-container" class="cash-container">
+        <p class="denomination-value">5</p><hr>
+        <p id="five-value" class="cash-value"></p>
+      </div>
+      
+      <div id="dollar-container" class="cash-container">
+        <p class="denomination-value">1</p><hr>
+        <p id="dollar-value" class="cash-value"></p>
+      </div>
+      
+      <div id="quarter-container" class="cash-container">
+        <p class="denomination-value">0.25</p><hr>
+        <p id="quarter-value" class="cash-value"></p>
+      </div>
+      
+      <div id="dime-container" class="cash-container">
+        <p class="denomination-value">0.10</p><hr>
+        <p id="dime-value" class="cash-value"></p>
+      </div>
+      
+      <div id="nickel-container" class="cash-container">
+        <p class="denomination-value">0.05</p><hr>
+        <p id="nickel-value" class="cash-value"></p>
+      </div>
+      
+      <div id="penny-container" class="cash-container">
+        <p class="denomination-value">0.01</p><hr>
+        <p id="penny-value" class="cash-value"></p>
+      </div>
+      
+      <div id="total-container" class="cash-container">
+        <p>TOTAL:</p><hr>
+        <p id="total-cash-value" class="cash-value"></p>
+      </div>
+    </div>
+  </div>
+  
+  
+  <div id="button-container">
+    <div>
+      <div id="set-cash" class="button">Set cash</div>
+    </div>
+    
+    <div id="payment-buttons">
+      <div id="hundred" class="pay-button button">100</div>
+      <div id="twenty" class="pay-button button">20</div>
+      <div id="ten" class="pay-button button">10</div>
+      <div id="five" class="pay-button button">5</div>
+      <div id="dollar" class="pay-button button">1</div>
+    </div>
+    
+    <div id="payment-input">
+      <input id="payment-input-value" name="payment-input-value" type="text" placeholder="Cash given:">
+      <label id="pay" name="payment-input-value" for="payment-input-value" class="button pay-button">Pay</label>
+    </div>
+  </div>
+  
+  <div id="bottom-row-container">
+    <div id="sellable-items" class="side-box">
+      <div id="apple" class="item">Apple</div>
+      <div id="banana" class="item">Banana</div>
+      <div id="crisps" class="item">Crisps</div>
+      <div id="drink" class="item">Drink</div>
+      <div id="energybar" class="item">Energy Bar</div>
+      <div id="feta" class="item">Feta</div>
+    </div>
+    
+    <div id="number-displays" class="side-box">
+      <div id="price-display">
+        <h2>Price:</h2>
+        <p id="price-value" class="results-display">0.00</p>
+      </div>
+
+      <div id="payment-display">
+        <h2>Cash given:</h2>
+        <p id="payment-value" class="results-display">0.00</p>
+      </div>
+
+      <div id="change-due-display">
+        <h2>Change due:</h2>
+        <p id="change-due-value" class="results-display">0.00</p>
+        <p id="change-due-array"></p>
+      </div>
+
+      <div id="status-display">
+        <h2>Status:</h2>
+        <p id="status">Waiting...</p>
+      </div>
+    </div>
+  </div>
+
+
+  <style src="cash-register.js" type="text/javascript"></script>
+</body>
