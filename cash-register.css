@@ -1,0 +1,113 @@
+* {
+  box-sizing: border-box;
+}
+
+body {
+  background: linear-gradient(75deg, #fcc, #cff);
+  background-size: contain;
+  text-align: center;
+  font-family: Aleo, garamond, arial;
+}
+
+h1 {
+  display: block;
+  background: linear-gradient(75deg, #fcc, #cff);
+  margin: 10vh auto;
+  padding: 4px;
+  max-width: 550px;
+  border: thick solid white;
+  border-radius: 24px;
+  box-shadow: 0 0 20px 4px rgba(0,0,0,0.2);
+}
+
+#cash-in-drawer-grid {
+  background: lightblue;
+  display: grid;
+  grid-template-areas:
+    "hundred twenty ten five dollar"
+    "quarter dime nickel penny total";
+  border: 1px solid;
+}
+
+.cash-container {
+  border: thin solid black;
+}
+
+.denomination-value::before, .results-display::before, .cash-value::before, .cash::before {
+  content: "€";
+}
+
+.cash-value {
+  font-weight: bold;
+}
+
+#button-container {
+  display: flex;
+  margin: 12px auto;
+  justify-content: space-evenly;
+  align-items: center;
+}
+
+.button {
+  background: gray;
+  display: inline-block;
+  margin: 24px auto 12px auto;
+  height: 50px;
+  line-height: 50px;
+  width: 50px;
+  cursor: pointer;
+}
+
+.pay-button {
+  
+}
+
+#set-cash {
+  line-height: 25px;
+}
+
+#payment-input-value {
+  line-height: 2.6em;
+  width: 120px;
+  font-size: 18px;
+  text-align: right;
+}
+
+#bottom-row-container {
+  background: blue;
+  display: flex;
+  margin: 24px auto;
+}
+
+.side-box {
+  width: 50%;
+}
+
+#sellable-items {
+  background: orange;
+  display: flex;
+  flex-flow: row wrap;
+  justify-content: space-evenly;
+  align-content: space-evenly;
+}
+
+.item {
+  background: lightblue;
+  border: thin solid;
+  height: 40%;
+  width: 30%;
+  cursor: pointer;
+}
+
+#number-displays {
+  background: green;
+  padding: auto 20px;
+}
+
+#number-displays div {
+  line-height: 10px;
+}
+
+#number-displays p {
+  font-size: 20px;
+}
