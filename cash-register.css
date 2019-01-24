@@ -15,7 +15,7 @@ body {
 h1 {
   display: block;
   background: linear-gradient(75deg, #fcc, #cff);
-  margin: 10vh auto;
+  margin: 5vh auto;
   padding: 4px;
   max-width: 550px;
   border: thick solid white;
@@ -30,10 +30,17 @@ h1 {
     "hundred twenty ten five dollar"
     "quarter dime nickel penny total";
   border: 1px solid;
+  box-shadow: 0 2px 6px 2px rgba(0,0,0,0.2); 
 }
 
 .cash-container {
   border: thin solid black;
+}
+
+.cash-container p:first-child {
+  line-height: 12px;
+  font-size: 0.9em;
+  color: #333;
 }
 
 .empty-cash {
@@ -46,6 +53,8 @@ h1 {
 }
 
 .cash-value {
+  line-height: 32px;
+  font-size: 1.1em;
   font-weight: bold;
 }
 
@@ -54,20 +63,33 @@ h1 {
   margin: 12px auto;
   justify-content: space-evenly;
   align-items: center;
+/*   box-shadow: 0 2px 6px 2px rgba(0,0,0,0.2); */
 }
 
 .button {
   background: gray;
   display: inline-block;
-  margin: 24px auto 12px auto;
+/*   margin: 24px auto 12px auto; */
+  width: 50px;
   height: 50px;
   line-height: 50px;
-  width: 50px;
+  border: 1px solid;
+  box-shadow: 0 2px 6px 2px rgba(0,0,0,0.2);
   cursor: pointer;
 }
 
-.pay-button {
-  
+.button:hover {
+  background: lightgray;
+}
+
+/*  Doesn't transform so well with text; goes blurry and transition is too small to be useful. */
+ .hover-shadow {
+  transition: transform 60ms;
+}
+
+.hover-shadow:hover {
+  box-shadow: 0 0 6px 0px rgba(0,0,0,0.5);
+  transform: scale(1.04);
 }
 
 #set-cash {
@@ -75,8 +97,10 @@ h1 {
 }
 
 #payment-input-value {
-  line-height: 2.6em;
-  width: 120px;
+/*   line-height: 2.5em; */
+  display: inline-block;
+  padding: 13px 4px;
+  width: 130px;
   font-size: 18px;
   text-align: right;
 }
@@ -118,12 +142,24 @@ h1 {
 }
 
 .summary-button {
-  background: yellow;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100%;
   padding: 12px;
   border: thin solid;
   border-radius: 5px;
+  font-size: 18px;
+  font-weight: bold;
   cursor: pointer;
 }
+
+/*.button-text {
+   display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100%;
+} */
 
 #receipt-display {
   grid-area: receipt;
@@ -134,12 +170,21 @@ h1 {
 }
 
 #print-receipt-button {
+  background: yellow;
   grid-area: button1;
+}
+
+#print-receipt-button:hover {
+  background: #ffff5b;
 }
 
 #next-customer-button {
   background: orange;
   grid-area: button2;
+}
+
+#next-customer-button:hover {
+  background: #ffc666;
 }
 
 ul {
@@ -162,6 +207,10 @@ ul {
   text-align: left;
 }
 
+#summary-lists li {
+  margin: 12px auto;
+}
+
 #summary-subject {
   font-weight: bold;
 }
@@ -172,10 +221,14 @@ ul {
   text-align: right;
 }
 
-#bottom-row-container {
+#top-row-container {
+  background: white;
   position: relative;
   display: flex;
-  margin: 24px auto;
+  margin: auto;
+  padding: 3px;
+  box-shadow: 0 2px 6px 2px rgba(0,0,0,0.2); 
+  border: 2px solid;
 }
 
 #button-blocker {
@@ -188,36 +241,50 @@ ul {
   left: 0;
 }
 
+/* Both side-boxes have an "order" value so they
+can be switched easily. Items on left seems more
+intuitive as filling the basket is the first step,
+however people using the system would most likely
+be right-handed and with the items/keys on the right,
+they could see what the display was reading on the left. */
 .side-box {
-  width: 50%;
+  width: 49.8%;
+  margin: 0 auto;
 }
 
 #sellable-items {
   background: orange;
-/*   display: flex;
-  flex-flow: row wrap;
-  justify-content: space-evenly;
-  align-content: space-evenly; */
+  order: 1;
   display: grid;
   grid-template-columns: repeat(3, 1fr);
-  grid-template-rows: repeat(2, 1fr);
+  grid-template-rows: repeat(3, 1fr);
+  grid-gap: 14px;
+  padding: 14px;
   align-items: center;
   justify-items: center;
+  border: 2px solid;
 }
 
 .item {
   background: lightblue;
+  display: flex;
+  justify-content: center;
+  align-items: center;
   border: thin solid;
-  height: 70%;
-  width: 70%;
-/*   height: auto; */
-/*   width: auto; */
+  height: 100%;
+  width: 100%;
   cursor: pointer;
 }
 
+.item:hover {
+  background: #c3ebf7;
+}
+
 #number-displays {
-  background: green;
+  background: #0dbf0d;
+  order: 0;
   padding: auto 20px;
+  border: 2px solid;
 }
 
 #number-displays div {
