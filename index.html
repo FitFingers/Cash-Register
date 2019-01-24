@@ -82,14 +82,31 @@
       <label id="pay" name="payment-input-value" for="payment-input-value" class="button pay-button">Pay</label>
     </div>
     
-    <div id="summary-display">
+    <div id="sale-summary-display">
       <div id="receipt-display" class="summary-display">
-        <p id="receipt">[Apple, 0.23]</p>
+        <h4>Shopping Centre</h4>
+        <p>Thank you, see you again!</p><hr>
+        <div id="receipt-lists" class="list-container">
+          <ul id="receipt-goods"></ul>
+          <ul id="receipt-price"></ul>
+        </div>
       </div>
       <div id="print-receipt-button" class="summary-button">Print Receipt</div>
       
       <div id="payment-summary-display" class="summary-display">
-        <p id=payment-summary>Payment Summary:</p>
+        <h4>Sale Summary</h4>
+        <p>Thank you, see you again!</p><hr>
+        <div id="summary-lists" class="list-container">
+          <ul id="summary-subject">
+            <li>Till status:</li><br>
+            <li>Price:</li><br>
+            <li>Cash paid:</li><br>
+            <li>Coins used:</li><br>
+            <li>Change due:</li><br>
+            <li>Coins used:</li><br>
+          </ul>
+          <ul id="summary-detail"><br></ul>
+        </div>
       </div>
       <div id="next-customer-button" class="summary-button">Continue</div>
     </div>
@@ -131,5 +148,4 @@
 
   
   <style src="cash-register.js" type="text/javascript"></script>
-  
 </body>
