@@ -73,6 +73,58 @@ h1 {
   text-align: right;
 }
 
+#summary-display {
+  display: none;
+  grid-template-areas:
+    "receipt summary"
+    "receipt summary"
+    "receipt summary"
+    "receipt summary"
+    "receipt summary"
+    "button1 button2";
+  grid-gap: 32px;
+  background: lightgreen;
+  position: absolute;
+  overflow: hidden;
+  padding: 32px;
+  width: 80%;
+  height: 80%;
+  border: 2px solid;
+  border-radius: 10px;
+  box-shadow: 0 4px 20px 4px rgba(0,0,0,0.5);
+}
+
+.summary-display {
+  background: white;
+  border: thin solid;
+  border-radius: 5px;
+}
+
+.summary-button {
+  background: yellow;
+  padding: 12px;
+  border: thin solid;
+  border-radius: 5px;
+  cursor: pointer;
+}
+
+#receipt-display {
+  grid-area: receipt;
+}
+
+#payment-summary-display {
+  grid-area: summary;
+}
+
+#print-receipt-button {
+  grid-area: button1;
+}
+
+#next-customer-button {
+  background: orange;
+  grid-area: button2;
+}
+
 #bottom-row-container {
   background: blue;
   display: flex;
