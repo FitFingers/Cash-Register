@@ -5,7 +5,10 @@ const SELLABLE_ITEMS = {
   crisps: 0.55,
   drink: 1.80,
   energybar: 0.99,
-  feta: 2.59
+  fish: 4.00,
+  grapes: 1.59,
+  halloumi: 3.59,
+  ice: 1.15,
 };
 
 let cashInDrawer = [["hundred", 100, 0], ["twenty", 20, 0], ["ten", 10, 0], ["five", 5, 0], ["dollar", 1, 0], ["quarter", 0.25, 0], ["dime", 0.10, 0], ["nickel", 0.05, 0], ["penny", 0.01, 0]];
@@ -96,33 +99,25 @@ function runPayment() {
     status: ""
   }
   
-  if (basket.length > 0 && CHANGE > 0) {
-    renderCashDisplays(PAYMENT, CHANGE);
-    const FINAL_CHANGE = determineCoins(CHANGE, RESULT);
-    updateCashInDrawer(RESULT, FINAL_CHANGE);
-    determineResultStatus(RESULT, FINAL_CHANGE);
-    renderStatus(RESULT);
-    
-  } else if (basket.length <= 0) {
+  // Changed order of these ifs
+  if (basket.length <= 0) {
     alert("BASKET_EMPTY");
     return;
   } else if (CHANGE <= 0) {
     alert("INSUFFICIENT_PAYMENT");
     return;
+    
+  } else if (basket.length > 0 && CHANGE > 0) {
+    renderCashDisplays(PAYMENT, CHANGE);
+    const FINAL_CHANGE = determineCoins(CHANGE, RESULT);
+    updateCashInDrawer(RESULT, FINAL_CHANGE, PAYMENT);
+    determineResultStatus(RESULT, FINAL_CHANGE);
+    renderStatus(RESULT);
   }
   
   if (RESULT.status !== "INSUFFICIENT_FUNDS") {
-    createSummaryItem(RESULT.status, "li");
-    createSummaryItem(basketValue, "li");
-    createSummaryItem(PAYMENT, "li");
-    createSummaryItem(CHANGE, "li");
-    sortChangeArray(RESULT.change);
-    openSummaryDisplay();
+    openSummaryDisplay(RESULT, PAYMENT, CHANGE, "li");
   }
-}
-
-function sortChangeArray(array) {
-  return array.map(coin => createSummaryItem(`[${coin[0]} x${coin[1]}]`, "li"))
 }
 
 
@@ -134,7 +129,7 @@ function renderCashDisplays(payment, change) {
 
 function determineCoins(change, result) {
   // Never forget about shallow/deep copying with slice()!
-  const COINS = cashInDrawer.filter(coin => coin[1] <= change).map(x => Object.assign([], x));
+  const COINS = cashInDrawer.filter(coin => coin[1] <= change).map(coin => Object.assign([], coin));
   return COINS.reduce((change, coin) => checkChange(change, coin, 0, result), change);
 }
 
@@ -158,16 +153,18 @@ function subtractCoins(change, coin, counter, result) {
   }
 }
 
-function updateCashInDrawer(result, finalChange) {
+// Better method to add payment to cid: find cashInDrawer.filter(coin => coin[1] <= payment).reduce((acc, coin) => if (payment > 0) then payment -= coin[1], coin[2] += coin[1], call again), payment);
+function updateCashInDrawer(result, finalChange, payment) {
   if (finalChange <= 0) {
-    result.change.map(coin => updateCoinValue(coin));
+    result.change.map(coin => updateCoinValue(coin, payment));
+    cashInDrawer.map(item => item[2] = item[1] == payment ? (parseFloat(item[2]) + payment).toFixed(2) : item[2]);
     renderCashInDrawer();
   }
 }
 
 function updateCoinValue(coin) {
   cashInDrawer.map(function (item) {
-    return item[2] = item.includes(coin[0]) ? coin[2] : item[2];
+    item[2] = item.includes(coin[0]) ? coin[2] : item[2];
   });
 }
 
@@ -188,18 +185,21 @@ function renderStatus(result) {
 function closeTill() {
   [...document.getElementsByClassName("pay-button")].map(item => item.classList.add("empty-cash"));
   document.getElementById("button-blocker").style.display = "block";
-  document.getElementById("set-cash").style.background = "green";
 }
 
 function openTill() {
   [...document.getElementsByClassName("pay-button")].map(item => item.classList.remove("empty-cash"));
   document.getElementById("button-blocker").style.display = "none";
-  document.getElementById("set-cash").style.background = "gray";
 }
 
-function openSummaryDisplay() {
+function openSummaryDisplay(result, payment, change, element) {
   basket.map(item => convertBasketToList(item));
   convertBasketTotal();
+  createSummaryItem(result.status, element);
+  createSummaryItem(basketValue, element);
+  createSummaryItem(payment.toFixed(2), element);
+  createSummaryItem(change, element);
+  sortChangeArray(result.change);
   document.getElementById("sale-summary-display").style.display = "grid";
 }
 
@@ -243,6 +243,10 @@ function createSummaryItem(item, element) {
 
 function renderSummaryItem(item) {
   document.getElementById("summary-detail").appendChild(item);
+}
+
+function sortChangeArray(array) {
+  return array.filter(coin => coin[1] > 0).map(coin => createSummaryItem(`[${coin[0]} x${coin[1]}]`, "li"))
 }
 
 function nextCustomer() {
