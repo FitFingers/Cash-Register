@@ -50,8 +50,12 @@ function addToBasket() {
   updateBasket();
 }
 
+function getBasketValue() {
+  return basket.map(item => item[1]).reduce((a, b) => a + b).toFixed(2);
+}
+
 function updateBasket() {
-  basketValue = basket.map(item => item[1]).reduce((a, b) => a + b).toFixed(2);
+  basketValue = getBasketValue();
   document.getElementById("price-value").innerHTML = basketValue;
 }
 
@@ -75,13 +79,17 @@ function runPayment() {
     status: ""
   }
   
-  if (basket.length >= 0) { //Exchange >= for > when uploading!
+  if (basket.length > 0 && CHANGE > 0) {
     renderCashDisplays(PAYMENT, CHANGE);
     const FINAL_CHANGE = determineCoins(CHANGE, RESULT);
+    updateCashInDrawer(RESULT, FINAL_CHANGE);
     determineResultStatus(RESULT, FINAL_CHANGE);
-    updateCashInDrawer(RESULT);
-  } else {
+    renderStatus(RESULT);
+  } else if (basket.length <= 0) {
     alert("BASKET_EMPTY");
+    return;
+  } else if (CHANGE <= 0) {
+    alert("INSUFFICIENT_PAYMENT");
     return;
   }
   
@@ -124,15 +132,12 @@ function subtractCoins(change, coin, counter, result) {
 function determineResultStatus(result, finalChange) {
   result.status = setTotalCash() == 0 ? "CLOSED" :
     finalChange === "0.00" ? "OPEN" : "INSUFFICIENT_FUNDS";
-  renderStatus(result);
 }
 
-function updateCashInDrawer(result) {
-  if (result.status === "OPEN") {
+function updateCashInDrawer(result, finalChange) {
+  if (finalChange == 0) {
     result.change.map(coin => updateCoinValue(coin));
     renderCashInDrawer();
-  } else {
-    alert(result.status);
   }
 }
 
@@ -147,12 +152,40 @@ function renderStatus(result) {
 }
 
 function openSummaryDisplay() {
-  document.getElementById("summary-display").style.display = "grid";
+  basket.map(item => convertBasketToList(item));
+  convertBasketTotal();
+  document.getElementById("sale-summary-display").style.display = "grid";
+}
+
+function convertBasketToList(item) {
+  const NEW_ITEM = document.createElement("li");
+  const NEW_PRICE = document.createElement("li");
+  const ITEM_CONTENT = document.createTextNode(item[0]);
+  const PRICE_CONTENT = document.createTextNode(item[1].toFixed(2));
+  NEW_ITEM.appendChild(ITEM_CONTENT);
+  NEW_PRICE.appendChild(PRICE_CONTENT);
+  renderBasketList(NEW_ITEM, NEW_PRICE);
+}
+
+function convertBasketTotal() {
+  const NEW_TOTAL = document.createElement("li");
+  const NEW_VALUE = document.createElement("li");
+  const TOTAL_TEXT = document.createTextNode("TOTAL:");
+  const TOTAL_VALUE = document.createTextNode(getBasketValue());
+  NEW_TOTAL.appendChild(TOTAL_TEXT);
+  NEW_VALUE.appendChild(TOTAL_VALUE);
+  renderBasketList(NEW_TOTAL, NEW_VALUE);
+}
+
+function renderBasketList(item, price) {
+  document.getElementById("receipt-goods").appendChild(item);
+  document.getElementById("receipt-price").appendChild(price);
 }
 
 function nextCustomer() {
   resetBasket();
-  document.getElementById("summary-display").style.display = "none";
+  renderCashDisplays(0, "0.00");
+  document.getElementById("sale-summary-display").style.display = "none";
 }
 
 
