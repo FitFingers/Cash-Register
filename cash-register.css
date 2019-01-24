@@ -7,7 +7,7 @@ body {
   background-size: contain;
 /*   padding: 32px; */
   min-width: 635px;
-  max-height: 100vh;
+/*   max-height: 100vh; */
   text-align: center;
   font-family: Aleo, garamond, arial;
 }
@@ -194,17 +194,24 @@ ul {
 
 #sellable-items {
   background: orange;
-  display: flex;
+/*   display: flex;
   flex-flow: row wrap;
   justify-content: space-evenly;
-  align-content: space-evenly;
+  align-content: space-evenly; */
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  grid-template-rows: repeat(2, 1fr);
+  align-items: center;
+  justify-items: center;
 }
 
 .item {
   background: lightblue;
   border: thin solid;
-  height: 40%;
-  width: 30%;
+  height: 70%;
+  width: 70%;
+/*   height: auto; */
+/*   width: auto; */
   cursor: pointer;
 }
 
