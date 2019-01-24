@@ -66,7 +66,7 @@
   
   <div id="button-container">
     <div>
-      <div id="set-cash" class="button">Set cash</div>
+      <div id="set-cash" class="button">Count Cash</div>
     </div>
     
     <div id="payment-buttons">
@@ -80,6 +80,18 @@
     <div id="payment-input">
       <input id="payment-input-value" name="payment-input-value" type="text" placeholder="Cash given:">
       <label id="pay" name="payment-input-value" for="payment-input-value" class="button pay-button">Pay</label>
+    </div>
+    
+    <div id="summary-display">
+      <div id="receipt-display" class="summary-display">
+        <p id="receipt">[Apple, 0.23]</p>
+      </div>
+      <div id="print-receipt-button" class="summary-button">Print Receipt</div>
+      
+      <div id="payment-summary-display" class="summary-display">
+        <p id=payment-summary>Payment Summary:</p>
+      </div>
+      <div id="next-customer-button" class="summary-button">Continue</div>
     </div>
   </div>
   
@@ -112,11 +124,12 @@
 
       <div id="status-display">
         <h2>Status:</h2>
-        <p id="status">Waiting...</p>
+        <p id="status">OPEN</p>
       </div>
     </div>
   </div>
 
   
   <style src="cash-register.js" type="text/javascript"></script>
+  
 </body>

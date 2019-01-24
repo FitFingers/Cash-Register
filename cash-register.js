@@ -13,24 +13,27 @@ let basket = [];
 let basketValue = 0;
 
 
+
 // FUNCTIONS
-function setCashInDrawer() {
-  cashInDrawer.map(index => index[2] = setCashValue(index));
+function setCashInDrawer(type) {
+  cashInDrawer.map(coin => coin[2] = setCashValue(coin, type));
   renderCashInDrawer();
 }
 
-function setCashValue(index) {
-  // Auto set the cash value
-  const MULTIPLIER =
-        index[1] > 10 ?
-          Math.floor(Math.random()*3) :
-        index[1] > 0.10 ? 
+function setCashValue(coin, type) {
+  // Randomly set the cash value
+  if (type === "auto") {
+    const MULTIPLIER =
+        coin[1] > 10 ?
+          Math.floor(Math.random()*4) :
+        coin[1] > 0.10 ? 
           Math.floor(Math.random()*40) : Math.floor(Math.random()*100);
-
-  return (document.getElementById(`${index[0]}-container`).children[0].innerHTML*MULTIPLIER).toFixed(2);
+    return (document.getElementById(`${coin[0]}-container`).children[0].innerHTML*MULTIPLIER).toFixed(2);
   
-  // Manually set the cash value
-  // return parseFloat(window.prompt(`Please set the value of ${index}:`)).toFixed(2);
+  } else {
+    // Manually set the cash value
+    return parseFloat(window.prompt(`Please set the value of ${coin[0]}:`)).toFixed(2);
+  }
 }
 
 function setTotalCash() {
@@ -38,7 +41,7 @@ function setTotalCash() {
 }
 
 function renderCashInDrawer() {
-  cashInDrawer.map(item => document.getElementById(`${item[0]}-value`).innerHTML = item[2]);
+  cashInDrawer.map(coin => document.getElementById(`${coin[0]}-value`).innerHTML = coin[2]);
   document.getElementById("total-cash-value").innerHTML = setTotalCash();
 }
 
@@ -49,6 +52,12 @@ function addToBasket() {
 
 function updateBasket() {
   basketValue = basket.map(item => item[1]).reduce((a, b) => a + b).toFixed(2);
+  document.getElementById("price-value").innerHTML = basketValue;
+}
+
+function resetBasket() {
+  basket = [];
+  basketValue = "0.00";
   document.getElementById("price-value").innerHTML = basketValue;
 }
 
@@ -66,25 +75,17 @@ function runPayment() {
     status: ""
   }
   
-  if (CHANGE >= 0) {
+  if (basket.length >= 0) { //Exchange >= for > when uploading!
     renderCashDisplays(PAYMENT, CHANGE);
     const FINAL_CHANGE = determineCoins(CHANGE, RESULT);
     determineResultStatus(RESULT, FINAL_CHANGE);
     updateCashInDrawer(RESULT);
+  } else {
+    alert("BASKET_EMPTY");
+    return;
   }
-}
-
-function updateCashInDrawer(result) {
-  if (result.status === "OPEN") {
-    result.change.map(coin => updateCoinValue(coin));
-    renderCashInDrawer();
-  }
-}
-
-function updateCoinValue(coin) {
-  cashInDrawer.map(function (item) {
-    return item[2] = item.includes(coin[0]) ? coin[2] : item[2];
-  });
+  
+  openSummaryDisplay();
 }
 
 
@@ -102,7 +103,7 @@ function determineCoins(change, result) {
 
 function checkChange(change, coin, counter, result) {
   if (change <= 0 || change === undefined) {
-    return 0;
+    return "0.00";
   } else if (change > 0) {
     return subtractCoins(change, coin, counter, result);
   }
@@ -121,109 +122,48 @@ function subtractCoins(change, coin, counter, result) {
 }
 
 function determineResultStatus(result, finalChange) {
-  result.status = finalChange === 0 ? "OPEN" : "INSUFFICIENT_FUNDS";
+  result.status = setTotalCash() == 0 ? "CLOSED" :
+    finalChange === "0.00" ? "OPEN" : "INSUFFICIENT_FUNDS";
+  renderStatus(result);
+}
+
+function updateCashInDrawer(result) {
+  if (result.status === "OPEN") {
+    result.change.map(coin => updateCoinValue(coin));
+    renderCashInDrawer();
+  } else {
+    alert(result.status);
+  }
+}
+
+function updateCoinValue(coin) {
+  cashInDrawer.map(function (item) {
+    return item[2] = item.includes(coin[0]) ? coin[2] : item[2];
+  });
+}
+
+function renderStatus(result) {
+  document.getElementById("status").innerHTML = result.status;
+}
+
+function openSummaryDisplay() {
+  document.getElementById("summary-display").style.display = "grid";
+}
+
+function nextCustomer() {
+  resetBasket();
+  document.getElementById("summary-display").style.display = "none";
 }
 
 
 
 // EVENT LISTENERS
 window.onload = function() {
-  setCashInDrawer();
+  setCashInDrawer("auto");
     
-  document.getElementById("set-cash").addEventListener("click", setCashInDrawer);
+  document.getElementById("set-cash").addEventListener("click", () => setCashInDrawer()); // Don't forget to remove the anonymous function and "auto" to make this a manual cash-count.
   [...document.getElementsByClassName("item")].map(item => item.addEventListener("click", addToBasket));
   [...document.getElementsByClassName("pay-button")].map(button => button.addEventListener("click", runPayment));
+  document.getElementById("next-customer-button").addEventListener("click", nextCustomer);
 }
 
-
-// END OF NEW CODE
-// START OF OLD CODE
-
-
-// function checkCashRegister(price, cash, cid) {
-//   //Variable declaration - due is change due, TOTAL_CASH_IN_DRAWER is total cash in drawer (parsed for math ops)
-//   let due = parseFloat((cash - price).toFixed(2));
-//   const TOTAL_CASH_IN_DRAWER = parseFloat(cid.map(coin => coin[1]).reduce((a, b) => a + b).toFixed(2));
-
-//   //The result object to be returned is created
-//   let result = {
-//     status: "",
-//     change: []
-//   };
-
-//   //A coin array with the value of each coin. Could have been added to cid as cid[0][0] etc.
-//   //Reversed to start ops with largest denomination.
-//   const COINS = [
-//     ["PENNY", 0.01],
-//     ["NICKEL", 0.05],
-//     ["DIME", 0.1],
-//     ["QUARTER", 0.25],
-//     ["ONE", 1],
-//     ["FIVE", 5],
-//     ["TEN", 10],
-//     ["TWENTY", 20],
-//     ["ONE HUNDRED", 100]
-//   ].reverse();
-
-
-//   //End operations here if cid isn't enough to give change or if the cid is equal to change due, close the till.
-//   if (TOTAL_CASH_IN_DRAWER < due) {
-//     result.status = "INSUFFICIENT_FUNDS";
-//   } else if (TOTAL_CASH_IN_DRAWER === due) {
-//     result.status = "CLOSED";
-//     result.change = cid;
-//   } else {
-//     result.status = "OPEN";
-//     if (due == 0) {
-//       return result
-//     }
-
-//     //This is admittedly very messy...
-//     //Filter the COINS array to only use coins that are equal to or less than the change due, and for each coin...
-//     COINS.filter(coin => coin[1] <= due).map(coin => {
-//       //... use these variables: num of coins needed; coinValue is total value in said coin; cidValue is value of that coin available
-//       //Perhaps dividing cid earlier by COINS would be easier to compute?
-//       let num = Math.floor(due / coin[1]);
-//       let coinValue = coin[1] * num;
-//       let cidValue = cid.filter(item => item.indexOf(coin[0]) >= 0)[0][1];
-
-//       //Only perform this function if num of coins required isn't 0
-//       if (num !== 0) {
-//         if (coinValue <= cidValue) {
-//           result.change.push([coin[0], coinValue]);
-//           due -= coinValue;
-//         } else {
-//           result.change.push([coin[0], (Math.floor(cidValue / coin[1])) * coin[1]]);
-//           due -= cidValue;
-//         }
-//         due = due.toFixed(2);
-//       }
-//     });
-
-//     //Finally, if change available is less than due (z.B. there are not enough of a required type of coin) then throw an error
-//     if (result.change.map(x => x[1]).reduce((a, b) => a + b) < due) {
-//       result.status = "INSUFFICIENT_FUNDS";
-//       result.change = [];
-//     }
-//   }
-
-//   return result;
-// }
-
-
-// //CHANGE COINS HERE
-// console.time("One");
-// console.log(JSON.stringify(checkCashRegister(19.39, 20,
-//   [
-//     ["PENNY", 0.02],
-//     ["NICKEL", 0.1],
-//     ["DIME", 0.10],
-//     ["QUARTER", 0.50],
-//     ["ONE", 1],
-//     ["FIVE", 0],
-//     ["TEN", 0],
-//     ["TWENTY", 20],
-//     ["ONE HUNDRED", 0]
-//   ]
-// )));
-// console.timeEnd("One");
