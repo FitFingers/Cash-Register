@@ -5,6 +5,7 @@
 body {
   background: linear-gradient(75deg, #fcc, #cff);
   background-size: contain;
+  min-width: 635px;
   text-align: center;
   font-family: Aleo, garamond, arial;
 }
@@ -73,7 +74,7 @@ h1 {
   text-align: right;
 }
 
-#summary-display {
+#sale-summary-display {
   display: none;
   grid-template-areas:
     "receipt summary"
@@ -96,8 +97,16 @@ h1 {
 
 .summary-display {
   background: white;
+  max-height: 453px;
+  overflow: scroll;
   border: thin solid;
   border-radius: 5px;
+}
+
+.list-container {
+  margin: auto;
+  min-width: 110px;
+  max-width: 260px;
 }
 
 .summary-button {
@@ -123,6 +132,25 @@ h1 {
 #next-customer-button {
   background: orange;
   grid-area: button2;
+}
+
+ul {
+  padding: 6px;
+  list-style: none;
+}
+
+#receipt-goods, #summary-subject {
+  float: left;
+  text-align: left;
+}
+
+#summary-subject {
+  font-weight: bold;
+}
+
+#receipt-price, #summary-detail {
+  float: right;
+  text-align: right;
 }
 
 #bottom-row-container {
