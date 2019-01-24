@@ -5,7 +5,9 @@
 body {
   background: linear-gradient(75deg, #fcc, #cff);
   background-size: contain;
+/*   padding: 32px; */
   min-width: 635px;
+  max-height: 100vh;
   text-align: center;
   font-family: Aleo, garamond, arial;
 }
@@ -32,6 +34,11 @@ h1 {
 
 .cash-container {
   border: thin solid black;
+}
+
+.empty-cash {
+  background: red;
+  opacity: 0.4;
 }
 
 .denomination-value::before, .results-display::before, .cash-value::before, .cash::before {
@@ -93,6 +100,7 @@ h1 {
   border: 2px solid;
   border-radius: 10px;
   box-shadow: 0 4px 20px 4px rgba(0,0,0,0.5);
+  z-index: 1;
 }
 
 .summary-display {
@@ -139,6 +147,16 @@ ul {
   list-style: none;
 }
 
+.list-item {
+  display: block;
+}
+
+.list-total {
+  display: block;
+  margin-top: 32px;
+  font-weight: bold;
+}
+
 #receipt-goods, #summary-subject {
   float: left;
   text-align: left;
@@ -150,13 +168,24 @@ ul {
 
 #receipt-price, #summary-detail {
   float: right;
+  max-width: 50%;
   text-align: right;
 }
 
 #bottom-row-container {
-  background: blue;
+  position: relative;
   display: flex;
   margin: 24px auto;
+}
+
+#button-blocker {
+  background: rgba(255,255,255, 0.45);
+  display: none;
+  position: absolute;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  left: 0;
 }
 
 .side-box {
