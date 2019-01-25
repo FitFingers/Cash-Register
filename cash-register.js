@@ -60,17 +60,18 @@ function renderCoin(coin) {
 }
 
 function addToBasket() {
-  basket.push([this.id, SELLABLE_ITEMS[this.id]]);
+  basket.unshift([this.id, SELLABLE_ITEMS[this.id]]);
   updateBasket();
+}
+
+function updateBasket() {
+  convertBasketToList(basket[0], "basket");
+  basketValue = getBasketValue();
+  document.getElementById("price-value").innerHTML = basketValue;
 }
 
 function getBasketValue() {
   return basket.map(item => item[1]).reduce((a, b) => a + b).toFixed(2);
-}
-
-function updateBasket() {
-  basketValue = getBasketValue();
-  document.getElementById("price-value").innerHTML = basketValue;
 }
 
 function resetBasket() {
@@ -108,7 +109,7 @@ function runPayment() {
     return;
     
   } else if (basket.length > 0 && CHANGE > 0) {
-    renderCashDisplays(PAYMENT, CHANGE);
+    // renderCashDisplays(PAYMENT, CHANGE);
     const FINAL_CHANGE = determineCoins(CHANGE, RESULT);
     updateCashInDrawer(RESULT, FINAL_CHANGE, PAYMENT);
     determineResultStatus(RESULT, FINAL_CHANGE);
@@ -122,10 +123,10 @@ function runPayment() {
 
 
 
-function renderCashDisplays(payment, change) {
-  document.getElementById("payment-value").innerHTML = payment.toFixed(2);
-  document.getElementById("change-due-value").innerHTML = change;
-}
+// function renderCashDisplays(payment, change) {
+//   document.getElementById("payment-value").innerHTML = payment.toFixed(2);
+//   document.getElementById("change-due-value").innerHTML = change;
+// }
 
 function determineCoins(change, result) {
   // Never forget about shallow/deep copying with slice()!
@@ -193,8 +194,8 @@ function openTill() {
 }
 
 function openSummaryDisplay(result, payment, change, element) {
-  basket.map(item => convertBasketToList(item));
-  convertBasketTotal();
+  basket.reverse().map(item => convertBasketToList(item, "receipt"));
+  convertBasketTotal("receipt");
   createSummaryItem(result.status, element);
   createSummaryItem(basketValue, element);
   createSummaryItem(payment.toFixed(2), element);
@@ -204,7 +205,7 @@ function openSummaryDisplay(result, payment, change, element) {
 }
 
 // Could probably make this function multi-use
-function convertBasketToList(item) {
+function convertBasketToList(item, target) {
   const NEW_ITEM = document.createElement("li");
   const NEW_PRICE = document.createElement("li");
   const ITEM_CONTENT = document.createTextNode(item[0]);
@@ -213,10 +214,10 @@ function convertBasketToList(item) {
   NEW_PRICE.appendChild(PRICE_CONTENT);
   NEW_ITEM.classList.add("list-item");
   NEW_PRICE.classList.add("list-item");
-  renderBasketList(NEW_ITEM, NEW_PRICE);
+  renderBasketList(NEW_ITEM, NEW_PRICE, target);
 }
 
-function convertBasketTotal() {
+function convertBasketTotal(target) {
   const NEW_TOTAL = document.createElement("li");
   const NEW_VALUE = document.createElement("li");
   const TOTAL_TEXT = document.createTextNode("TOTAL:");
@@ -225,12 +226,12 @@ function convertBasketTotal() {
   NEW_VALUE.appendChild(TOTAL_VALUE);
   NEW_TOTAL.classList.add("list-total");
   NEW_VALUE.classList.add("list-total");
-  renderBasketList(NEW_TOTAL, NEW_VALUE);
+  renderBasketList(NEW_TOTAL, NEW_VALUE, target);
 }
 
-function renderBasketList(item, price) {
-  document.getElementById("receipt-goods").appendChild(item);
-  document.getElementById("receipt-price").appendChild(price);
+function renderBasketList(item, price, target) {
+  document.getElementById(`${target}-goods`).appendChild(item);
+  document.getElementById(`${target}-price`).appendChild(price);
 }
 
 function createSummaryItem(item, element) {
@@ -251,7 +252,7 @@ function sortChangeArray(array) {
 
 function nextCustomer() {
   resetBasket();
-  renderCashDisplays(0, "0.00");
+  // renderCashDisplays(0, "0.00");
   document.getElementById("sale-summary-display").style.display = "none";
 }
 
