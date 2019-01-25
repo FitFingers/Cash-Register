@@ -4,6 +4,7 @@
   --yellow: #FFD166;
   --pewter: #93B7BE;
   --france: #228CDB;
+  --error-red: #E53939;
 }
 
 * {
@@ -212,8 +213,18 @@ ul {
   list-style: none;
 }
 
+/* Using a css grid would be much better here */
 .list-item {
   display: block;
+  border-radius: 2px;
+}
+
+.clickable-item {
+  cursor: pointer;
+}
+
+.selected-item {
+  background: var(--yellow);
 }
 
 .list-total {
@@ -228,7 +239,7 @@ ul {
 }
 
 #summary-lists li {
-  margin: 12px auto;
+  margin: 0 auto 12px auto;
 }
 
 #summary-subject {
@@ -271,12 +282,11 @@ they could see what the display was reading on the left. */
 .side-box {
   width: 49%;
   margin: 0 auto;
-/*   border: 2px solid; */
   border-radius: 5px;
 }
 
+/* With more items, the current buttons could be replaced with drop-down menus or pop-up windows, such as Fruit, Vegetables, Bakery, Dairy, Frozen etc. */
 #sellable-items {
-/*   background: var(--pewter); */
   order: 1;
   display: grid;
   grid-template-columns: repeat(3, 1fr);
@@ -305,7 +315,7 @@ they could see what the display was reading on the left. */
 }
 
 #number-displays {
-  background: white;
+  background: var(--error-red);
   order: 0;
   margin: 14px;
   padding: 0 12px;
