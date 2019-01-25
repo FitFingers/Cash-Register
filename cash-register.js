@@ -60,14 +60,15 @@ function renderCoin(coin) {
 }
 
 function addToBasket() {
-  basket.unshift([this.id, SELLABLE_ITEMS[this.id]]);
+  basket.push([this.id, SELLABLE_ITEMS[this.id]]);
+  convertBasketToList(basket[basket.length-1], "basket");
   updateBasket();
 }
 
 function updateBasket() {
-  convertBasketToList(basket[0], "basket");
   basketValue = getBasketValue();
   document.getElementById("price-value").innerHTML = basketValue;
+  addItemListener();
 }
 
 function getBasketValue() {
@@ -109,7 +110,6 @@ function runPayment() {
     return;
     
   } else if (basket.length > 0 && CHANGE > 0) {
-    // renderCashDisplays(PAYMENT, CHANGE);
     const FINAL_CHANGE = determineCoins(CHANGE, RESULT);
     updateCashInDrawer(RESULT, FINAL_CHANGE, PAYMENT);
     determineResultStatus(RESULT, FINAL_CHANGE);
@@ -122,11 +122,6 @@ function runPayment() {
 }
 
 
-
-// function renderCashDisplays(payment, change) {
-//   document.getElementById("payment-value").innerHTML = payment.toFixed(2);
-//   document.getElementById("change-due-value").innerHTML = change;
-// }
 
 function determineCoins(change, result) {
   // Never forget about shallow/deep copying with slice()!
@@ -177,10 +172,13 @@ function determineResultStatus(result, finalChange) {
 function renderStatus(result) {
   document.getElementById("status").innerHTML = result.status;
   if (result.status === "INSUFFICIENT_FUNDS") {
-    alert("INSUFFICIENT_FUNDS");
+    document.getElementById("number-displays").style.background = "var(--error-red)";
+    alert("INSUFFICIENT_FUNDS: unable to produce change.");
+    return;
   } else if(result.status === "CLOSED") {
     closeTill();
   }
+  document.getElementById("number-displays").style.background = "white";
 }
 
 function closeTill() {
@@ -194,7 +192,7 @@ function openTill() {
 }
 
 function openSummaryDisplay(result, payment, change, element) {
-  basket.reverse().map(item => convertBasketToList(item, "receipt"));
+  basket.map(item => convertBasketToList(item, "receipt"));
   convertBasketTotal("receipt");
   createSummaryItem(result.status, element);
   createSummaryItem(basketValue, element);
@@ -204,7 +202,7 @@ function openSummaryDisplay(result, payment, change, element) {
   document.getElementById("sale-summary-display").style.display = "grid";
 }
 
-// Could probably make this function multi-use
+// Make this recyclable! Problem is that getBasketValue.toFixed is invalid and thus stops the code.
 function convertBasketToList(item, target) {
   const NEW_ITEM = document.createElement("li");
   const NEW_PRICE = document.createElement("li");
@@ -214,6 +212,7 @@ function convertBasketToList(item, target) {
   NEW_PRICE.appendChild(PRICE_CONTENT);
   NEW_ITEM.classList.add("list-item");
   NEW_PRICE.classList.add("list-item");
+  if (target === "basket") { NEW_ITEM.classList.add("clickable-item") }
   renderBasketList(NEW_ITEM, NEW_PRICE, target);
 }
 
@@ -234,6 +233,39 @@ function renderBasketList(item, price, target) {
   document.getElementById(`${target}-price`).appendChild(price);
 }
 
+function addItemListener() {
+  [...document.getElementsByClassName("clickable-item")].map(item => item.addEventListener("click", selectItem));
+}
+
+function selectItem() {
+  [...document.getElementsByClassName("clickable-item")].map(item => item.classList.remove("selected-item"));
+  this.classList.add("selected-item");
+}
+
+function removeItem() {
+  const ELEMENT = [...document.getElementsByClassName("selected-item")][0];
+  let i = 0, haveWeFoundIt = false;
+  while (haveWeFoundIt === false && i < basket.length) {
+    if (basket[i][0] === ELEMENT.innerHTML) {
+      haveWeFoundIt = true;
+      basket = basket.slice().splice(0, i).concat(basket.slice().splice(i+1));
+      ELEMENT.style.display = "none";
+      document.getElementById("basket-price").children[findNodeIndex(ELEMENT)].style.display = "none";
+    }
+    i++;
+  }
+  updateBasket();
+}
+
+function findNodeIndex(element) {
+  const CHILDREN = element.parentElement.children;
+  for (let i = 0; i < CHILDREN.length; i++) {
+    if (CHILDREN[i] == element) {
+      return i;
+    }
+  };
+}
+
 function createSummaryItem(item, element) {
   const NEW_ITEM = document.createElement(element);
   const NEW_VALUE = document.createTextNode(item);
@@ -252,7 +284,6 @@ function sortChangeArray(array) {
 
 function nextCustomer() {
   resetBasket();
-  // renderCashDisplays(0, "0.00");
   document.getElementById("sale-summary-display").style.display = "none";
 }
 
@@ -262,9 +293,9 @@ function nextCustomer() {
 window.onload = function() {
   setCashInDrawer("auto");
     
-  document.getElementById("set-cash").addEventListener("click", () => setCashInDrawer()); // Don't forget to remove the anonymous function and "auto" to make this a manual cash-count.
+  document.getElementById("set-cash").addEventListener("click", setCashInDrawer);
   [...document.getElementsByClassName("item")].map(item => item.addEventListener("click", addToBasket));
   [...document.getElementsByClassName("pay-button")].map(button => button.addEventListener("click", runPayment));
   document.getElementById("next-customer-button").addEventListener("click", nextCustomer);
+  document.getElementById("remove-item").addEventListener("click", removeItem);
 }
-
