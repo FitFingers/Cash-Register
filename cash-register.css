@@ -1,40 +1,52 @@
+:root {
+  --eerie: #070A12;
+  --seaweed: #0B7189;
+  --yellow: #FFD166;
+  --pewter: #93B7BE;
+  --france: #228CDB;
+}
+
 * {
   box-sizing: border-box;
+  color: var(--eerie);
 }
 
 body {
-  background: linear-gradient(75deg, #fcc, #cff);
-  background-size: contain;
-/*   padding: 32px; */
-  min-width: 635px;
-/*   max-height: 100vh; */
+  background: #EEE;
+  display: flex;
+  flex-direction: column;
+  padding: 16px 32px;
+  margin: auto;
+  min-width: 680px;
+  max-width: 1200px;
+  height: 100vh;
   text-align: center;
   font-family: Aleo, garamond, arial;
 }
 
 h1 {
   display: block;
-  background: linear-gradient(75deg, #fcc, #cff);
-  margin: 5vh auto;
+  margin: 3.5vh 0;
   padding: 4px;
-  max-width: 550px;
-  border: thick solid white;
-  border-radius: 24px;
-  box-shadow: 0 0 20px 4px rgba(0,0,0,0.2);
+  max-width: 51.5%;
+  border-radius: 16px;
+  box-shadow: 0 6px 20px 0 rgba(0,0,0,0.15);
 }
 
 #cash-in-drawer-grid {
-  background: lightblue;
+  background: #9ACAEE;
   display: grid;
   grid-template-areas:
     "hundred twenty ten five dollar"
     "quarter dime nickel penny total";
-  border: 1px solid;
+  overflow: hidden;
+  border: 1px solid var(--seaweed);
+  border-radius: 8px;
   box-shadow: 0 2px 6px 2px rgba(0,0,0,0.2); 
 }
 
 .cash-container {
-  border: thin solid black;
+  border: thin solid var(--pewter);
 }
 
 .cash-container p:first-child {
@@ -46,9 +58,10 @@ h1 {
 .empty-cash {
   background: red;
   opacity: 0.4;
+  border: none;
 }
 
-.denomination-value::before, .results-display::before, .cash-value::before, .cash::before {
+.cash-symbol::before {
   content: "€";
 }
 
@@ -60,47 +73,61 @@ h1 {
 
 #button-container {
   display: flex;
-  margin: 12px auto;
+  padding: 6px;
+  margin: 12px 4px;
   justify-content: space-evenly;
   align-items: center;
-/*   box-shadow: 0 2px 6px 2px rgba(0,0,0,0.2); */
+}
+
+.sub-button-container {
+  display: flex;
 }
 
 .button {
-  background: gray;
+  background: lightgreen;
   display: inline-block;
-/*   margin: 24px auto 12px auto; */
-  width: 50px;
-  height: 50px;
-  line-height: 50px;
-  border: 1px solid;
+  margin: auto 0.39vw;
+  width: 70px;
+  height: 70px;
+  line-height: 70px;
+  border-radius: 5px;
   box-shadow: 0 2px 6px 2px rgba(0,0,0,0.2);
+  font-weight: bold;
   cursor: pointer;
 }
 
 .button:hover {
-  background: lightgray;
+  background: #B4FCB4;
 }
 
-/*  Doesn't transform so well with text; goes blurry and transition is too small to be useful. */
  .hover-shadow {
   transition: transform 60ms;
 }
 
 .hover-shadow:hover {
-  box-shadow: 0 0 6px 0px rgba(0,0,0,0.5);
+  box-shadow: 0 0 8px 2px rgba(0,0,0,0.35);
   transform: scale(1.04);
 }
 
-#set-cash {
-  line-height: 25px;
+#set-cash, #logout-button {
+  background: var(--yellow);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 2px;
+  line-height: 24px;
+}
+
+#set-cash:hover, #logout-button:hover {
+  background: #FFE19D;
 }
 
 #payment-input-value {
-/*   line-height: 2.5em; */
-  display: inline-block;
   padding: 13px 4px;
   width: 130px;
+  border: none;
+  box-shadow: 0 2px 8px 1px rgba(0,0,0,0.2);
+  border-radius: 5px;
   font-size: 18px;
   text-align: right;
 }
@@ -119,9 +146,10 @@ h1 {
   position: absolute;
   overflow: hidden;
   padding: 32px;
-  width: 80%;
-  height: 80%;
-  border: 2px solid;
+  top: 12%;
+  right: 10%;
+  bottom: 10%;
+  left: 10%;
   border-radius: 10px;
   box-shadow: 0 4px 20px 4px rgba(0,0,0,0.5);
   z-index: 1;
@@ -129,10 +157,10 @@ h1 {
 
 .summary-display {
   background: white;
-  max-height: 453px;
   overflow: scroll;
-  border: thin solid;
+  padding: 6px 8px;
   border-radius: 5px;
+  box-shadow: 0 2px 6px 2px rgba(0,0,0,0.2);
 }
 
 .list-container {
@@ -145,21 +173,13 @@ h1 {
   display: flex;
   justify-content: center;
   align-items: center;
-  height: 100%;
   padding: 12px;
-  border: thin solid;
   border-radius: 5px;
+  box-shadow: 0 2px 6px 2px rgba(0,0,0,0.2);
   font-size: 18px;
   font-weight: bold;
   cursor: pointer;
 }
-
-/*.button-text {
-   display: flex;
-  justify-content: center;
-  align-items: center;
-  height: 100%;
-} */
 
 #receipt-display {
   grid-area: receipt;
@@ -184,7 +204,7 @@ h1 {
 }
 
 #next-customer-button:hover {
-  background: #ffc666;
+  background: var(--yellow);
 }
 
 ul {
@@ -222,13 +242,14 @@ ul {
 }
 
 #top-row-container {
-  background: white;
+  background: var(--seaweed);
   position: relative;
   display: flex;
-  margin: auto;
-  padding: 3px;
-  box-shadow: 0 2px 6px 2px rgba(0,0,0,0.2); 
-  border: 2px solid;
+  flex: 2;
+/*   margin: auto; */
+  padding: 10px;
+  box-shadow: 0 0 12px 4px rgba(0,0,0,0.2); 
+  border-radius: 5px;
 }
 
 #button-blocker {
@@ -248,12 +269,14 @@ however people using the system would most likely
 be right-handed and with the items/keys on the right,
 they could see what the display was reading on the left. */
 .side-box {
-  width: 49.8%;
+  width: 49%;
   margin: 0 auto;
+/*   border: 2px solid; */
+  border-radius: 5px;
 }
 
 #sellable-items {
-  background: orange;
+/*   background: var(--pewter); */
   order: 1;
   display: grid;
   grid-template-columns: repeat(3, 1fr);
@@ -262,17 +285,18 @@ they could see what the display was reading on the left. */
   padding: 14px;
   align-items: center;
   justify-items: center;
-  border: 2px solid;
 }
 
 .item {
-  background: lightblue;
+  background: #9ACAEE;
   display: flex;
   justify-content: center;
   align-items: center;
-  border: thin solid;
   height: 100%;
   width: 100%;
+  border-radius: 5px;
+  box-shadow: 0 2px 6px 2px rgba(0,0,0,0.2);
+  font-weight: bold;
   cursor: pointer;
 }
 
@@ -281,10 +305,10 @@ they could see what the display was reading on the left. */
 }
 
 #number-displays {
-  background: #0dbf0d;
+  background: white;
   order: 0;
+  margin: 14px;
   padding: auto 20px;
-  border: 2px solid;
 }
 
 #number-displays div {
@@ -293,4 +317,17 @@ they could see what the display was reading on the left. */
 
 #number-displays p {
   font-size: 20px;
+}
+
+/* MEDIA QUERIES */
+@media only screen and (max-width: 840px) {
+  .button {
+    height: 50px;
+    width: 50px;
+    line-height: 50px;
+  }
+}
+
+@media only screen and (max-width: 680px) {
+  
 }
