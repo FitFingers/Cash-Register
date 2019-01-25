@@ -72,7 +72,7 @@ function updateBasket() {
 }
 
 function getBasketValue() {
-  return basket.map(item => item[1]).reduce((a, b) => a + b).toFixed(2);
+  return basket.length === 0 ? "0.00" : basket.map(item => item[1]).reduce((a, b) => a + b).toFixed(2);
 }
 
 function resetBasket() {
