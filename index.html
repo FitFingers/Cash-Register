@@ -31,25 +31,23 @@
     </div>
     
     <div id="number-displays" class="side-box">
-      <div id="price-display">
-        <h2>Price:</h2>
-        <p id="price-value" class="results-display cash-symbol">0.00</p>
+      <div id="display-header">
+        <div id="status-display">
+          <h2>Status:</h2>
+          <p id="status">OPEN</p>
+        </div>
+        
+        <div id="price-display">
+          <h2>Price:</h2>
+          <p id="price-value" class="results-display cash-symbol">0.00</p>
+        </div>
       </div>
-
-      <div id="payment-display">
-        <h2>Cash given:</h2>
-        <p id="payment-value" class="results-display cash-symbol">0.00</p>
-      </div>
-
-      <div id="change-due-display">
-        <h2>Change due:</h2>
-        <p id="change-due-value" class="results-display cash-symbol">0.00</p>
-        <p id="change-due-array"></p>
-      </div>
-
-      <div id="status-display">
-        <h2>Status:</h2>
-        <p id="status">OPEN</p>
+      
+      <div id="basket-display">
+        <div id="basket-lists" class="list-container">
+          <ul id="basket-goods"></ul>
+          <ul id="basket-price"></ul>
+        </div>
       </div>
     </div>
   </div>
@@ -59,7 +57,7 @@
   <div id="button-container">
     <div class="sub-button-container">
       <div id="set-cash" class="button hover-shadow">Count Cash</div>
-      <div id="logout-button" class="button hover-shadow">Log Out</div>
+      <div id="remove-item" class="button hover-shadow">Remove Item</div>
     </div>
     
     <div id="payment-buttons">
@@ -71,7 +69,7 @@
     </div>
     
     <div id="payment-input" class="sub-button-container">
-      <input id="payment-input-value" name="payment-input-value" type="text" placeholder="Cash given:">
+      <input id="payment-input-value" name="payment-input-value" type="text" placeholder="Cash paid:">
       <label id="pay" name="payment-input-value" for="payment-input-value" class="button pay-button hover-shadow">Pay</label>
     </div>
     
