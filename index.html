@@ -10,7 +10,9 @@
 <!--  -->
 
 <body>
-  <h1>JavaScript Cash Register</h1>
+  <header>
+    <h1>JavaScript Cash Register</h1>
+  </header>
   
   
   
@@ -31,17 +33,17 @@
     <div id="number-displays" class="side-box">
       <div id="price-display">
         <h2>Price:</h2>
-        <p id="price-value" class="results-display">0.00</p>
+        <p id="price-value" class="results-display cash-symbol">0.00</p>
       </div>
 
       <div id="payment-display">
         <h2>Cash given:</h2>
-        <p id="payment-value" class="results-display">0.00</p>
+        <p id="payment-value" class="results-display cash-symbol">0.00</p>
       </div>
 
       <div id="change-due-display">
         <h2>Change due:</h2>
-        <p id="change-due-value" class="results-display">0.00</p>
+        <p id="change-due-value" class="results-display cash-symbol">0.00</p>
         <p id="change-due-array"></p>
       </div>
 
@@ -55,8 +57,9 @@
   
   
   <div id="button-container">
-    <div>
+    <div class="sub-button-container">
       <div id="set-cash" class="button hover-shadow">Count Cash</div>
+      <div id="logout-button" class="button hover-shadow">Log Out</div>
     </div>
     
     <div id="payment-buttons">
@@ -67,7 +70,7 @@
       <div id="dollar" class="pay-button button hover-shadow">1</div>
     </div>
     
-    <div id="payment-input">
+    <div id="payment-input" class="sub-button-container">
       <input id="payment-input-value" name="payment-input-value" type="text" placeholder="Cash given:">
       <label id="pay" name="payment-input-value" for="payment-input-value" class="button pay-button hover-shadow">Pay</label>
     </div>
@@ -107,53 +110,53 @@
 <!--     <h2>Cash in drawer:</h2> -->
     <div id="cash-in-drawer-grid">
       <div id="hundred-container" class="cash-container">
-        <p class="denomination-value">100</p><hr>
-        <p id="hundred-value" class="cash-value"></p>
+        <p class="denomination-value cash-symbol">100</p><hr>
+        <p id="hundred-value" class="cash-value cash-symbol"></p>
       </div>
       
       <div id="twenty-container" class="cash-container">
-        <p class="denomination-value">20</p><hr>
-        <p id="twenty-value" class="cash-value"></p>
+        <p class="denomination-value cash-symbol">20</p><hr>
+        <p id="twenty-value" class="cash-value cash-symbol"></p>
       </div>
       
       <div id="ten-container" class="cash-container">
-        <p class="denomination-value">10</p><hr>
-        <p id="ten-value" class="cash-value"></p>
+        <p class="denomination-value cash-symbol">10</p><hr>
+        <p id="ten-value" class="cash-value cash-symbol"></p>
       </div>
       
       <div id="five-container" class="cash-container">
-        <p class="denomination-value">5</p><hr>
-        <p id="five-value" class="cash-value"></p>
+        <p class="denomination-value cash-symbol">5</p><hr>
+        <p id="five-value" class="cash-value cash-symbol"></p>
       </div>
       
       <div id="dollar-container" class="cash-container">
-        <p class="denomination-value">1</p><hr>
-        <p id="dollar-value" class="cash-value"></p>
+        <p class="denomination-value cash-symbol">1</p><hr>
+        <p id="dollar-value" class="cash-value cash-symbol"></p>
       </div>
       
       <div id="quarter-container" class="cash-container">
-        <p class="denomination-value">0.25</p><hr>
-        <p id="quarter-value" class="cash-value"></p>
+        <p class="denomination-value cash-symbol">0.25</p><hr>
+        <p id="quarter-value" class="cash-value cash-symbol"></p>
       </div>
       
       <div id="dime-container" class="cash-container">
-        <p class="denomination-value">0.10</p><hr>
-        <p id="dime-value" class="cash-value"></p>
+        <p class="denomination-value cash-symbol">0.10</p><hr>
+        <p id="dime-value" class="cash-value cash-symbol"></p>
       </div>
       
       <div id="nickel-container" class="cash-container">
-        <p class="denomination-value">0.05</p><hr>
-        <p id="nickel-value" class="cash-value"></p>
+        <p class="denomination-value cash-symbol">0.05</p><hr>
+        <p id="nickel-value" class="cash-value cash-symbol"></p>
       </div>
       
       <div id="penny-container" class="cash-container">
-        <p class="denomination-value">0.01</p><hr>
-        <p id="penny-value" class="cash-value"></p>
+        <p class="denomination-value cash-symbol">0.01</p><hr>
+        <p id="penny-value" class="cash-value cash-symbol"></p>
       </div>
       
       <div id="total-container" class="cash-container">
         <p style="font-weight: bold">TOTAL:</p><hr>
-        <p id="total-cash-value" class="cash-value"></p>
+        <p id="total-cash-value" class="cash-value cash-symbol"></p>
       </div>
     </div>
   </div>
