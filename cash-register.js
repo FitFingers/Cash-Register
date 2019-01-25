@@ -105,7 +105,7 @@ function runPayment() {
   if (basket.length <= 0) {
     alert("BASKET_EMPTY");
     return;
-  } else if (CHANGE <= 0) {
+  } else if (CHANGE <= 0 || CHANGE === "NaN") {
     alert("INSUFFICIENT_PAYMENT");
     return;
     
