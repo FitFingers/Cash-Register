@@ -25,12 +25,13 @@ body {
 }
 
 h1 {
+  background: white;
   display: block;
   margin: 3.5vh 0;
   padding: 4px;
   max-width: 51.5%;
   border-radius: 16px;
-  box-shadow: 0 6px 20px 0 rgba(0,0,0,0.15);
+  box-shadow: 0 3px 20px 6px rgba(0,0,0,0.15);
 }
 
 #cash-in-drawer-grid {
@@ -40,9 +41,8 @@ h1 {
     "hundred twenty ten five dollar"
     "quarter dime nickel penny total";
   overflow: hidden;
-  border: 1px solid var(--seaweed);
   border-radius: 8px;
-  box-shadow: 0 2px 6px 2px rgba(0,0,0,0.2); 
+  box-shadow: 0 2px 6px 0 var(--seaweed); 
 }
 
 .cash-container {
@@ -109,7 +109,7 @@ h1 {
   transform: scale(1.04);
 }
 
-#set-cash, #logout-button {
+#set-cash, #remove-item {
   background: var(--yellow);
   display: flex;
   justify-content: center;
@@ -118,7 +118,7 @@ h1 {
   line-height: 24px;
 }
 
-#set-cash:hover, #logout-button:hover {
+#set-cash:hover, #remove-item:hover {
   background: #FFE19D;
 }
 
@@ -144,7 +144,7 @@ h1 {
   grid-gap: 32px;
   background: lightgreen;
   position: absolute;
-  overflow: hidden;
+  overflow: scroll;
   padding: 32px;
   top: 12%;
   right: 10%;
@@ -222,7 +222,7 @@ ul {
   font-weight: bold;
 }
 
-#receipt-goods, #summary-subject {
+#receipt-goods, #summary-subject, #basket-goods {
   float: left;
   text-align: left;
 }
@@ -235,7 +235,7 @@ ul {
   font-weight: bold;
 }
 
-#receipt-price, #summary-detail {
+#receipt-price, #summary-detail, #basket-price {
   float: right;
   max-width: 50%;
   text-align: right;
@@ -308,7 +308,26 @@ they could see what the display was reading on the left. */
   background: white;
   order: 0;
   margin: 14px;
-  padding: auto 20px;
+  padding: 0 12px;
+  overflow: scroll;
+}
+
+#display-header {
+  display: flex;
+}
+
+#price-display {
+  flex: 1;
+  text-align: right;
+}
+
+#status-display {
+  flex: 1;
+  text-align: left;
+}
+
+#basket-display li {
+  line-height: 20px;
 }
 
 #number-displays div {
