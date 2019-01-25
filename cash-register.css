@@ -259,6 +259,7 @@ ul {
   flex: 2;
 /*   margin: auto; */
   padding: 10px;
+  min-height: 300px;
   box-shadow: 0 0 12px 4px rgba(0,0,0,0.2); 
   border-radius: 5px;
 }
