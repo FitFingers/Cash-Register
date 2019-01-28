@@ -284,15 +284,14 @@ function sortChangeArray(array) {
 
 function nextCustomer() {
   resetBasket();
+  document.getElementById("payment-input-value").value = "";
   document.getElementById("sale-summary-display").style.display = "none";
 }
 
-function receiveMessage(event) {
-  if (event.origin !== "https://s.codepen.io") {
-    return;
-  }
+function iFrameHeightPipe(event) {
+  if (event.origin !== "https://s.codepen.io") { return }
   const HEIGHT = document.body.scrollHeight;
-  event.source.postMessage(HEIGHT, event.origin);
+  event.source.postMessage(["cash-register", HEIGHT], event.origin);
 }
 
 
@@ -305,5 +304,5 @@ window.onload = function() {
   [...document.getElementsByClassName("pay-button")].map(button => button.addEventListener("click", runPayment));
   document.getElementById("next-customer-button").addEventListener("click", nextCustomer);
   document.getElementById("remove-item").addEventListener("click", removeItem);
-  window.addEventListener("message", receiveMessage);
+  window.addEventListener("message", iFrameHeightPipe);
 }
