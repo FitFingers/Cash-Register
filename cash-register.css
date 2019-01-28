@@ -18,7 +18,7 @@ body {
   flex-direction: column;
   padding: 16px 32px;
   margin: auto;
-  min-width: 680px;
+  min-width: 350px;
   max-width: 1200px;
   height: 100vh;
   text-align: center;
@@ -28,8 +28,9 @@ body {
 h1 {
   background: white;
   display: block;
-  margin: 3.5vh 0;
+  margin: 1.5vh 0 3.5vh 0;
   padding: 4px;
+  min-width: 202px;
   max-width: 51.5%;
   border-radius: 16px;
   box-shadow: 0 3px 20px 6px rgba(0,0,0,0.15);
@@ -41,6 +42,7 @@ h1 {
   grid-template-areas:
     "hundred twenty ten five dollar"
     "quarter dime nickel penny total";
+  margin-bottom: 16px;
   overflow: hidden;
   border-radius: 8px;
   box-shadow: 0 2px 6px 0 var(--seaweed); 
@@ -101,8 +103,8 @@ h1 {
   background: #B4FCB4;
 }
 
- .hover-shadow {
-  transition: transform 60ms;
+.hover-shadow {
+  transition: transform 70ms;
 }
 
 .hover-shadow:hover {
@@ -358,6 +360,57 @@ they could see what the display was reading on the left. */
   }
 }
 
-@media only screen and (max-width: 680px) {
+@media only screen and (max-width: 670px) {
+  body {
+    height: auto;
+  }
   
+  #top-row-container {
+    flex-direction: column;
+    width: auto;
+    height: 60vh;
+  }
+  
+  .side-box {
+    width: auto;
+  }
+  
+  #sellable-items {
+/*     background: orange; */
+    width: 100%;
+    height: 70%;
+  }
+  
+  #button-container {
+    flex-wrap: wrap;
+    margin-left: 32px;
+    margin-right: 32px;
+  }
+  
+  #payment-buttons {
+    display: flex;
+    order: 2;
+    margin-top: 13px;
+  }
+}
+
+@media only screen and (max-width: 430px) {
+  #cash-in-drawer-grid {
+    grid-template-areas:
+      "hundred twenty"
+      "ten five"
+      "dollar quarter"
+      "dime nickel"
+      "penny total";
+  }
+  
+  #payment-input {
+    margin-top: 13px;
+  }
+}
+
+@media only screen and (max-height: 840px) {
+  body {
+    height: auto;
+  }
 }
