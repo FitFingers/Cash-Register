@@ -291,9 +291,8 @@ function receiveMessage(event) {
   if (event.origin !== "https://s.codepen.io") {
     return;
   }
-  alert("message received from " + event.origin)
-  // console.log(event.origin);
-  // event.source.postMessage("hello there yourself!", event.origin);
+  const HEIGHT = document.body.scrollHeight;
+  event.source.postMessage(HEIGHT, event.origin);
 }
 
 
