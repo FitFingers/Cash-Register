@@ -1,167 +1,177 @@
-<head>
-  <title>Keep Track Of Your Inventory And Finances | Cash Register</title>
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <meta charset="utf-8">
-  <meta name="description" content="A simple JavaScript cash register.">
-  <link href="https://fonts.googleapis.com/css?family=Aleo|Thasadith" rel="stylesheet" type="text/css">
-  <link href="cash-register.css" rel="stylesheet" type="text/css">
-</head>
+<!DOCTYPE html>
+<html>
 
-<!--  -->
+  <!--    -->
 
-<body>
-  <header>
-    <h1>JavaScript Cash Register</h1>
-  </header>
-  
-  
-  
-  <div id="top-row-container">
-    <div id="button-blocker"></div>
-    <div id="sellable-items" class="side-box">
-      <div id="apple" class="item hover-shadow">Apple</div>
-      <div id="banana" class="item hover-shadow">Banana</div>
-      <div id="crisps" class="item hover-shadow">Crisps</div>
-      <div id="drink" class="item hover-shadow">Drink</div>
-      <div id="energybar" class="item hover-shadow">Energy Bar</div>
-      <div id="fish" class="item hover-shadow">Fish</div>
-      <div id="grapes" class="item hover-shadow">Grapes</div>
-      <div id="halloumi" class="item hover-shadow">Halloumi</div>
-      <div id="ice" class="item hover-shadow">Ice</div>
-    </div>
-    
-    <div id="number-displays" class="side-box">
-      <div id="display-header">
-        <div id="status-display">
-          <h2>Status:</h2>
-          <p id="status">OPEN</p>
-        </div>
-        
-        <div id="price-display">
-          <h2>Price:</h2>
-          <p id="price-value" class="results-display cash-symbol">0.00</p>
-        </div>
-      </div>
-      
-      <div id="basket-display">
-        <div id="basket-lists" class="list-container">
-          <ul id="basket-goods"></ul>
-          <ul id="basket-price"></ul>
-        </div>
-      </div>
-    </div>
-  </div>
-  
-  
-  
-  <div id="button-container">
-    <div class="sub-button-container">
-      <div id="set-cash" class="button hover-shadow">Count Cash</div>
-      <div id="remove-item" class="button hover-shadow">Remove Item</div>
-    </div>
-    
-    <div id="payment-buttons">
-      <div id="hundred" class="pay-button button hover-shadow">100</div>
-      <div id="twenty" class="pay-button button hover-shadow">20</div>
-      <div id="ten" class="pay-button button hover-shadow">10</div>
-      <div id="five" class="pay-button button hover-shadow">5</div>
-      <div id="dollar" class="pay-button button hover-shadow">1</div>
-    </div>
-    
-    <div id="payment-input" class="sub-button-container">
-      <input id="payment-input-value" name="payment-input-value" type="text" placeholder="Cash paid:">
-      <label id="pay" name="payment-input-value" for="payment-input-value" class="button pay-button hover-shadow">Pay</label>
-    </div>
-    
-    <div id="sale-summary-display">
-      <div id="receipt-display" class="summary-display">
-        <h4>Shopping Centre</h4>
-        <p>Thank you, see you again!</p><hr>
-        <div id="receipt-lists" class="list-container">
-          <ul id="receipt-goods"></ul>
-          <ul id="receipt-price"></ul>
-        </div>
-      </div>
-      <div id="print-receipt-button" class="summary-button hover-shadow">Print Receipt</div>
-      
-      <div id="payment-summary-display" class="summary-display">
-        <h4>Sale Summary</h4>
-        <p>Thank you, see you again!</p><hr>
-        <div id="summary-lists" class="list-container">
-          <ul id="summary-subject">
-            <li>Till status:</li>
-            <li>Price:</li>
-            <li>Cash paid:</li>
-            <li>Change due:</li>
-            <li>Coins returned:</li>
-          </ul>
-          <ul id="summary-detail"></ul>
-        </div>
-      </div>
-      <div id="next-customer-button" class="summary-button hover-shadow">Continue</div>
-    </div>
-  </div>
-  
-  
-  
-  <div id="cash-in-drawer-display">
-<!--     <h2>Cash in drawer:</h2> -->
-    <div id="cash-in-drawer-grid">
-      <div id="hundred-container" class="cash-container">
-        <p class="denomination-value cash-symbol">100</p><hr>
-        <p id="hundred-value" class="cash-value cash-symbol"></p>
-      </div>
-      
-      <div id="twenty-container" class="cash-container">
-        <p class="denomination-value cash-symbol">20</p><hr>
-        <p id="twenty-value" class="cash-value cash-symbol"></p>
-      </div>
-      
-      <div id="ten-container" class="cash-container">
-        <p class="denomination-value cash-symbol">10</p><hr>
-        <p id="ten-value" class="cash-value cash-symbol"></p>
-      </div>
-      
-      <div id="five-container" class="cash-container">
-        <p class="denomination-value cash-symbol">5</p><hr>
-        <p id="five-value" class="cash-value cash-symbol"></p>
-      </div>
-      
-      <div id="dollar-container" class="cash-container">
-        <p class="denomination-value cash-symbol">1</p><hr>
-        <p id="dollar-value" class="cash-value cash-symbol"></p>
-      </div>
-      
-      <div id="quarter-container" class="cash-container">
-        <p class="denomination-value cash-symbol">0.25</p><hr>
-        <p id="quarter-value" class="cash-value cash-symbol"></p>
-      </div>
-      
-      <div id="dime-container" class="cash-container">
-        <p class="denomination-value cash-symbol">0.10</p><hr>
-        <p id="dime-value" class="cash-value cash-symbol"></p>
-      </div>
-      
-      <div id="nickel-container" class="cash-container">
-        <p class="denomination-value cash-symbol">0.05</p><hr>
-        <p id="nickel-value" class="cash-value cash-symbol"></p>
-      </div>
-      
-      <div id="penny-container" class="cash-container">
-        <p class="denomination-value cash-symbol">0.01</p><hr>
-        <p id="penny-value" class="cash-value cash-symbol"></p>
-      </div>
-      
-      <div id="total-container" class="cash-container">
-        <p style="font-weight: bold">TOTAL:</p><hr>
-        <p id="total-cash-value" class="cash-value cash-symbol"></p>
-      </div>
-    </div>
-  </div>
-  
-  
-  
-  
-   <script src="cash-register.js" type="text/javascript"></script>
 
-</body>
+  <head>
+    <title>Keep Track Of Your Inventory And Finances | Cash Register</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta charset="utf-8">
+    <meta name="description" content="A simple JavaScript cash register.">
+    <link href="https://fonts.googleapis.com/css?family=Aleo|Thasadith" rel="stylesheet" type="text/css">
+    <link href="cash-register.css" rel="stylesheet" type="text/css">
+  </head>
+
+  <!--  -->
+
+  <body>
+    <header>
+      <h1>JavaScript Cash Register</h1>
+    </header>
+
+
+
+    <div id="top-row-container">
+      <div id="button-blocker"></div>
+      <div id="sellable-items" class="side-box">
+        <div id="apple" class="item hover-shadow">Apple</div>
+        <div id="banana" class="item hover-shadow">Banana</div>
+        <div id="crisps" class="item hover-shadow">Crisps</div>
+        <div id="drink" class="item hover-shadow">Drink</div>
+        <div id="energybar" class="item hover-shadow">Energy Bar</div>
+        <div id="fish" class="item hover-shadow">Fish</div>
+        <div id="grapes" class="item hover-shadow">Grapes</div>
+        <div id="halloumi" class="item hover-shadow">Halloumi</div>
+        <div id="ice" class="item hover-shadow">Ice</div>
+      </div>
+
+      <div id="number-displays" class="side-box">
+        <div id="display-header">
+          <div id="status-display">
+            <h2>Status:</h2>
+            <p id="status">OPEN</p>
+          </div>
+
+          <div id="price-display">
+            <h2>Price:</h2>
+            <p id="price-value" class="results-display cash-symbol">0.00</p>
+          </div>
+        </div>
+
+        <div id="basket-display">
+          <div id="basket-lists" class="list-container">
+            <ul id="basket-goods"></ul>
+            <ul id="basket-price"></ul>
+          </div>
+        </div>
+      </div>
+    </div>
+
+
+
+    <div id="button-container">
+      <div class="sub-button-container">
+        <div id="set-cash" class="button hover-shadow">Count Cash</div>
+        <div id="remove-item" class="button hover-shadow">Remove Item</div>
+      </div>
+
+      <div id="payment-buttons">
+        <div id="hundred" class="pay-button button hover-shadow">100</div>
+        <div id="twenty" class="pay-button button hover-shadow">20</div>
+        <div id="ten" class="pay-button button hover-shadow">10</div>
+        <div id="five" class="pay-button button hover-shadow">5</div>
+        <div id="dollar" class="pay-button button hover-shadow">1</div>
+      </div>
+
+      <div id="payment-input" class="sub-button-container">
+        <input id="payment-input-value" name="payment-input-value" type="text" placeholder="Cash paid:">
+        <label id="pay" name="payment-input-value" for="payment-input-value" class="button pay-button hover-shadow">Pay</label>
+      </div>
+
+      <div id="sale-summary-display">
+        <div id="receipt-display" class="summary-display">
+          <h4>Shopping Centre</h4>
+          <p>Thank you, see you again!</p><hr>
+          <div id="receipt-lists" class="list-container">
+            <ul id="receipt-goods"></ul>
+            <ul id="receipt-price"></ul>
+          </div>
+        </div>
+        <div id="print-receipt-button" class="summary-button hover-shadow">Print Receipt</div>
+
+        <div id="payment-summary-display" class="summary-display">
+          <h4>Sale Summary</h4>
+          <p>Thank you, see you again!</p><hr>
+          <div id="summary-lists" class="list-container">
+            <ul id="summary-subject">
+              <li>Till status:</li>
+              <li>Price:</li>
+              <li>Cash paid:</li>
+              <li>Change due:</li>
+              <li>Coins returned:</li>
+            </ul>
+            <ul id="summary-detail"></ul>
+          </div>
+        </div>
+        <div id="next-customer-button" class="summary-button hover-shadow">Continue</div>
+      </div>
+    </div>
+
+
+
+    <div id="cash-in-drawer-display">
+      <!--     <h2>Cash in drawer:</h2> -->
+      <div id="cash-in-drawer-grid">
+        <div id="hundred-container" class="cash-container">
+          <p class="denomination-value cash-symbol">100</p><hr>
+          <p id="hundred-value" class="cash-value cash-symbol"></p>
+        </div>
+
+        <div id="twenty-container" class="cash-container">
+          <p class="denomination-value cash-symbol">20</p><hr>
+          <p id="twenty-value" class="cash-value cash-symbol"></p>
+        </div>
+
+        <div id="ten-container" class="cash-container">
+          <p class="denomination-value cash-symbol">10</p><hr>
+          <p id="ten-value" class="cash-value cash-symbol"></p>
+        </div>
+
+        <div id="five-container" class="cash-container">
+          <p class="denomination-value cash-symbol">5</p><hr>
+          <p id="five-value" class="cash-value cash-symbol"></p>
+        </div>
+
+        <div id="dollar-container" class="cash-container">
+          <p class="denomination-value cash-symbol">1</p><hr>
+          <p id="dollar-value" class="cash-value cash-symbol"></p>
+        </div>
+
+        <div id="quarter-container" class="cash-container">
+          <p class="denomination-value cash-symbol">0.25</p><hr>
+          <p id="quarter-value" class="cash-value cash-symbol"></p>
+        </div>
+
+        <div id="dime-container" class="cash-container">
+          <p class="denomination-value cash-symbol">0.10</p><hr>
+          <p id="dime-value" class="cash-value cash-symbol"></p>
+        </div>
+
+        <div id="nickel-container" class="cash-container">
+          <p class="denomination-value cash-symbol">0.05</p><hr>
+          <p id="nickel-value" class="cash-value cash-symbol"></p>
+        </div>
+
+        <div id="penny-container" class="cash-container">
+          <p class="denomination-value cash-symbol">0.01</p><hr>
+          <p id="penny-value" class="cash-value cash-symbol"></p>
+        </div>
+
+        <div id="total-container" class="cash-container">
+          <p style="font-weight: bold">TOTAL:</p><hr>
+          <p id="total-cash-value" class="cash-value cash-symbol"></p>
+        </div>
+      </div>
+    </div>
+
+
+
+
+    <script src="cash-register.js" type="text/javascript"></script>
+
+  </body>
+
+
+
+</html>
