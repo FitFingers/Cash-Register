@@ -18,17 +18,6 @@ let basketValue = 0;
 
 
 // FUNCTIONS
-
-function receiveMessage(event) {
-//   if (event.origin !== "codepen.io") {
-//     return;
-//   }
-  console.log(event.origin);
-  event.source.postMessage("hello there yourself!", event.origin);
-}
-
-window.addEventListener("message", receiveMessage);
-
 function setCashInDrawer(type) {
   cashInDrawer.map(coin => coin[2] = setCashValue(coin, type));
   renderCashInDrawer();
@@ -298,6 +287,14 @@ function nextCustomer() {
   document.getElementById("sale-summary-display").style.display = "none";
 }
 
+function receiveMessage(event) {
+  if (event.origin !== "https://s.codepen.io") {
+    return;
+  }
+  alert("message received from " + event.origin)
+  // console.log(event.origin);
+  // event.source.postMessage("hello there yourself!", event.origin);
+}
 
 
 // EVENT LISTENERS
@@ -309,4 +306,5 @@ window.onload = function() {
   [...document.getElementsByClassName("pay-button")].map(button => button.addEventListener("click", runPayment));
   document.getElementById("next-customer-button").addEventListener("click", nextCustomer);
   document.getElementById("remove-item").addEventListener("click", removeItem);
+  window.addEventListener("message", receiveMessage);
 }
