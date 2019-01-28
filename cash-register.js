@@ -20,9 +20,9 @@ let basketValue = 0;
 // FUNCTIONS
 
 function receiveMessage(event) {
-  if (event.origin !== "codepen.io") {
-    return;
-  }
+//   if (event.origin !== "codepen.io") {
+//     return;
+//   }
   console.log(event.origin);
   event.source.postMessage("hello there yourself!", event.origin);
 }
