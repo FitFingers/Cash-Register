@@ -395,9 +395,13 @@ they could see what the display was reading on the left. */
     width: auto;
   }
   
+  #number-displays {
+    height: 36%;
+  }
+  
   #sellable-items {
     width: 100%;
-    height: 70%;
+    height: 100%;
   }
   
   #button-container {
