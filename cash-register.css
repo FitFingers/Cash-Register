@@ -25,15 +25,36 @@ body {
   font-family: Aleo, garamond, arial;
 }
 
+header {
+  margin: auto;
+  padding: 0 24px;
+  width: 100%;
+  max-width: 1200px;
+}
+
 h1 {
   background: white;
-  display: block;
-  margin: 1.5vh 0 3.5vh 0;
+  position: relative;
+  float: left;
   padding: 4px;
   min-width: 202px;
-  max-width: 51.5%;
+  width: 50%;
   border-radius: 16px;
   box-shadow: 0 3px 20px 6px rgba(0,0,0,0.15);
+}
+
+#logo {
+  float: right;
+  width: 185px;
+  margin-top: 9px;
+  margin-right: -29px;
+}
+
+#james-hooper-logo {
+  background: url(https://i.ibb.co/0D6VZ2k/logo-large-white.png);
+  background-size: contain;
+  background-repeat: no-repeat;
+  height: 70px;
 }
 
 #cash-in-drawer-grid {
@@ -215,7 +236,6 @@ ul {
   list-style: none;
 }
 
-/* Using a css grid would be much better here */
 .list-item {
   display: block;
   border-radius: 2px;
@@ -376,7 +396,6 @@ they could see what the display was reading on the left. */
   }
   
   #sellable-items {
-/*     background: orange; */
     width: 100%;
     height: 70%;
   }
@@ -394,7 +413,27 @@ they could see what the display was reading on the left. */
   }
 }
 
-@media only screen and (max-width: 430px) {
+@media only screen and (max-width: 470px) {
+  #logo {
+    width: 23vw;
+    height: 23vw;
+    margin-right: 0;
+  }
+  
+  #james-hooper-logo {
+    background: url(https://i.ibb.co/p4tv7Vb/logo-small-white.png);
+    background-size: contain;
+    background-repeat: no-repeat;
+    width: 23vw;
+    height: 23vw;
+    min-width: 86px;
+    min-height: 86px;
+  }
+  
+  header {
+    padding: 0;
+  }
+  
   #cash-in-drawer-grid {
     grid-template-areas:
       "hundred twenty"
