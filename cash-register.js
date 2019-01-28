@@ -18,6 +18,17 @@ let basketValue = 0;
 
 
 // FUNCTIONS
+
+function receiveMessage(event) {
+  if (event.origin !== "codepen.io") {
+    return;
+  }
+  console.log(event.origin);
+  event.source.postMessage("hello there yourself!", event.origin);
+}
+
+window.addEventListener("message", receiveMessage);
+
 function setCashInDrawer(type) {
   cashInDrawer.map(coin => coin[2] = setCashValue(coin, type));
   renderCashInDrawer();
