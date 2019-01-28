@@ -399,6 +399,10 @@ they could see what the display was reading on the left. */
     height: 36%;
   }
   
+  #basket-display {
+    margin-top: -34px;
+  }
+  
   #sellable-items {
     width: 100%;
     height: 100%;
@@ -446,7 +450,9 @@ they could see what the display was reading on the left. */
       "dime nickel"
       "penny total";
   }
-  
+}
+
+@media only screen and (max-width: 430px) {
   #payment-input {
     margin-top: 13px;
   }
