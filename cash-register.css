@@ -338,7 +338,7 @@ they could see what the display was reading on the left. */
 }
 
 #number-displays {
-  background: var(--error-red);
+  background: white;
   order: 0;
   margin: 14px;
   padding: 0 12px;
